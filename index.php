@@ -22,8 +22,12 @@ if(isset($_POST['submit'] ) ){
     if($id){
         // update the existing student
         if($fname != '' && $lname != '' && $roll != ''){
-            updateStudent($id,$fname,$lname,$roll);
-            header('location: /php_program/crud/index.php?task=report');
+            $result = updateStudent($id,$fname,$lname,$roll);
+            if($result){
+                header('location: /php_program/crud/index.php?task=report');
+            }else{
+                $error = 1;
+            }
         }
     }else{
         // add a new  student
@@ -118,7 +122,7 @@ if(isset($_POST['submit'] ) ){
         ?>
         <div class="row">
             <div class="column column-60 column-offset-20">
-                <form action="/php_program/crud/index.php?task=edit" method="POST">
+                <form method="POST">
 
                     <input type="hidden" value="<?php echo $id ?>" name="id">
                     <label for="fname">First Name</label>
