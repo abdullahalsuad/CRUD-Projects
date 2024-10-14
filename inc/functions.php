@@ -134,3 +134,7 @@ function updateStudent($id,$fname,$lname,$roll){
     }
     return false;
 } 
+
+function deleteStudent($id){
+    
+}

@@ -4,6 +4,13 @@ $info = '';
 $task = $_GET['task'] ?? 'report';
 $error = $_GET['error'] ?? '0';
 
+if('delete' == $task){
+    $id = filter_input(INPUT_POST, 'id',FILTER_SANITIZE_STRING);
+    if($id>0){
+        deleteStudent($id);
+    }
+}
+
 if ( 'seed' == $task ) {
     seed(DB_NAME);
     $info = "Seeding is complete";
