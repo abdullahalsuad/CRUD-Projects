@@ -14,7 +14,7 @@ function seed($filename) {
             'lname' => 'Ahmed',
             'roll'  => '12'
         ),
-        array(
+        array( 
             'id'    => 3,
             'fname' => 'Ripon',
             'lname' => 'Ahmed',
@@ -82,7 +82,7 @@ function seed($filename) {
         }
     }
     if(!$found){
-        $newId = count($students) + 1;
+        $newId = getNewId($students);
         $student = array(
             'id' => $newId,
             'fname' => $fname,
@@ -136,5 +136,14 @@ function updateStudent($id,$fname,$lname,$roll){
 } 
 
 function deleteStudent($id){
-    
+    $serializedData = file_get_contents(DB_NAME);
+    $students = unserialize($serializedData);
+
+    unset($students[$id-1]);
+    $serializedData = serialize($students);
+    file_put_contents(DB_NAME, $serializedData, LOCK_EX); 
+}
+
+function getNewId($students){
+    $mxId = max(array_column($students,'id')); 
 }
